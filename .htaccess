@@ -1,0 +1,80 @@
+# BEGIN WP Hide & Security Enhancer
+<IfModule mod_rewrite.c> 
+RewriteEngine On 
+RewriteBase /projectv2/ 
+#WriteCheckString:1563855901_34475
+RewriteRule .* - [E=HTTP_MOD_REWRITE:On]
+
+RewriteRule ^addons/(.+) /projectv2/wp-content/plugins/$1 [L,QSA]
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteRule ^wp-content/plugins(.+) /projectv2/index.php?wph-throw-404 [L]
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in.*$ [NC]
+RewriteRule ^wp-includes(.+) /projectv2/index.php?wph-throw-404 [L]
+
+RewriteRule ^inc/(.+) /projectv2/wp-includes/$1 [L,QSA]
+
+RewriteRule ^media/(.+) /projectv2/wp-content/uploads/$1 [L,QSA]
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteRule ^wp-content/uploads/(.+) /projectv2/index.php?wph-throw-404 [L]
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteRule ^license.txt /projectv2/index.php?wph-throw-404 [L]
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{REQUEST_FILENAME} !wp-activate.php [NC]
+RewriteCond %{REQUEST_FILENAME} !wp-cron.php [NC]
+RewriteCond %{REQUEST_FILENAME} !wp-signup.php [NC]
+RewriteCond %{REQUEST_FILENAME} !wp-register.php [NC]
+RewriteCond %{REQUEST_FILENAME} !wp-comments-post.php [NC]
+RewriteCond %{REQUEST_FILENAME} !wp-login.php [NC]
+RewriteRule ^wp-([a-z-])+.php /projectv2/index.php?wph-throw-404 [L]
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteRule ^wp-register.php /projectv2/index.php?wph-throw-404 [L]
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteRule ^wp-signup.php /projectv2/index.php?wph-throw-404 [L]
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteRule ^wp-activate.php /projectv2/index.php?wph-throw-404 [L]
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteRule ^readme.html /projectv2/index.php?wph-throw-404 [L]
+
+RewriteRule ^comments.php /projectv2/wp-comments-post.php [L,QSA]
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteRule ^wp-comments-post.php /projectv2/index.php?wph-throw-404 [L]
+
+RewriteRule ^resources/(.+) /projectv2/wp-content/$1 [L,QSA]
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in.*$ [NC]
+RewriteRule ^wp-content(.+) /projectv2/index.php?wph-throw-404 [L]
+
+                            <FilesMatch "">
+                                <IfModule mod_headers.c>
+                                    Header unset X-Pingback
+                                </IfModule>
+                            </FilesMatch>
+
+                            <FilesMatch "">
+                                <IfModule mod_headers.c>
+                                    Header unset X-Powered-By
+                                </IfModule>
+                            </FilesMatch>
+
+RewriteRule ^login(.*) /projectv2/wp-login.php$1 [L,QSA]
+
+RewriteCond %{REQUEST_URI} /projectv2/admin$
+RewriteRule ^(.*)$ /projectv2/admin/ [R=301,L]
+RewriteRule ^admin(.*) /projectv2/wp-admin$1 [L,QSA]
+</IfModule> 
+
+# END WP Hide & Security Enhancer
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /projectv2/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /projectv2/index.php [L]
+</IfModule>
+
+# END WordPress
